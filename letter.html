@@ -8,7 +8,7 @@
         /* General Body Styles */
         body {
             font-family: 'Comic Sans MS', cursive;
-            background-color: #ffb6c1; /* Soft pink background */
+            background-color: #ffb6c1;
             color: #ff69b4;
             text-align: center;
             padding: 20px;
@@ -17,7 +17,6 @@
             align-items: center;
             min-height: 100vh; 
             margin: 0;
-            /* Scroll functionality is now working as 'overflow: hidden' was removed */
         }
         
         /* --- CLOSED LETTER STYLES --- */
@@ -26,13 +25,13 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 40px;
-            transition: opacity 0.5s; /* For fading out the container */
+            transition: opacity 0.5s; 
         }
 
         .closed-letter {
             width: 150px;
             height: 100px;
-            background-color: #fff; /* White envelope */
+            background-color: #fff; 
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             position: relative;
@@ -41,11 +40,11 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            animation: float 2s infinite alternate; /* Gentle floating effect */
+            animation: float 2s infinite alternate; 
         }
 
         .closed-letter:hover {
-            transform: scale(1.1) translateY(-5px); /* Lift and enlarge on hover */
+            transform: scale(1.1) translateY(-5px); 
             box-shadow: 0 10px 20px rgba(255, 105, 180, 0.5);
         }
 
@@ -53,7 +52,7 @@
             position: absolute;
             top: 5px;
             right: 5px;
-            color: #ff69b4; /* Hot pink heart */
+            color: #ff69b4; 
             font-size: 24px;
             line-height: 1;
         }
@@ -71,7 +70,6 @@
             border-radius: 20px;
             padding: 20px 40px;
             box-shadow: 0 0 15px rgba(0,0,0,0.2);
-            /* Initially hidden */
             display: none; 
             opacity: 0;
             transform-origin: top; 
@@ -90,7 +88,7 @@
             100% { transform: scaleY(1); opacity: 1; }
         }
 
-        /* --- TEXT ANIMATION STYLES (Fade-In & Letter Spacing) --- */
+        /* --- TEXT ANIMATION STYLES (Adjusted) --- */
         .letter-content {
             line-height: 1.6;
             text-align: justify;
@@ -101,7 +99,7 @@
             opacity: 0; /* Start hidden */
             letter-spacing: 5px; /* Start with large spacing */
             transition: opacity 1.5s ease-out, letter-spacing 1.5s ease-out;
-            transition-delay: 1.8s; /* Start after the letter has opened */
+            /* REMOVED transition-delay: 1.8s; */
             white-space: pre-wrap;
             overflow: hidden; 
         }
@@ -109,10 +107,10 @@
         /* Class to apply the final state of the text animation */
         .content-visible {
             opacity: 1;
-            letter-spacing: normal; /* End with normal spacing */
+            letter-spacing: normal; 
         }
         
-        /* --- OTHER STYLES --- */
+        /* --- OTHER STYLES (Adjusted Signature Delay) --- */
         h1 {
             border-bottom: 2px solid #ffb6c1;
             padding-bottom: 10px;
@@ -124,8 +122,9 @@
             margin-top: 30px;
             font-style: italic;
             font-weight: bold;
-            opacity: 0; /* Hide signature until animation is done */
-            transition: opacity 1s 3.5s; /* Delay signature until text animation is finished */
+            opacity: 0; 
+            /* NEW DELAY: 1.5s (text transition duration) + 0.5s (buffer) = 2s total */
+            transition: opacity 1s 2s; 
         }
         
         .signature.visible {
@@ -191,10 +190,8 @@
         const closedLetters = document.getElementById('closed-letters');
 
         function startTextAnimation() {
-            // Triggers the CSS transition for fade-in and letter-spacing
+            // This is called immediately after the letter opening animation is triggered.
             textElement.classList.add('content-visible');
-            
-            // Triggers the CSS transition for the signature fade-in
             signatureElement.classList.add('visible'); 
         }
         
@@ -209,9 +206,10 @@
                 // 3. Start the "opening" animation for the main letter
                 loveLetter.classList.add('opening');
                 
-                // 4. Start the text animation after the letter is visually open (1.5s + 300ms buffer)
-                setTimeout(startTextAnimation, 1800);
-            }, 500); // 500ms matches the transition duration for opacity
+                // 4. Start the text animation immediately after triggering the letter open animation
+                // This ensures the text starts fading in AS the letter is opening.
+                startTextAnimation(); 
+            }, 500); 
         }
     </script>
 </body>
