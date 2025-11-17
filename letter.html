@@ -3,33 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Love Letter</title>
+    <title>My Love Letter 📜</title>
     <style>
+        /* General Body Styles */
         body {
             font-family: 'Comic Sans MS', cursive;
-            background-color: #ffb6c1;
+            background-color: #ffb6c1; 
             color: #ff69b4;
             text-align: center;
             padding: 20px;
+            display: flex; 
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; 
+            margin: 0;
+            overflow: hidden; 
         }
+        
+        /* --- CLOSED LETTER STYLES --- */
+        .closed-letter-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            transition: opacity 0.5s; 
+        }
+
+        .closed-letter {
+            width: 150px;
+            height: 100px;
+            background-color: #fff; 
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: float 2s infinite alternate; 
+        }
+
+        .closed-letter:hover {
+            transform: scale(1.1) translateY(-5px); 
+            box-shadow: 0 10px 20px rgba(255, 105, 180, 0.5);
+        }
+
+        .heart-seal {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            color: #ff69b4; 
+            font-size: 24px;
+            line-height: 1;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-10px); }
+        }
+
+        /* --- OPEN LETTER STYLES --- */
         .letter {
             max-width: 600px;
             margin: 0 auto;
             background-color: #fff;
             border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            animation: openLetter 2s ease-in-out;
+            padding: 20px 40px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            display: none; 
+            opacity: 0;
+            transform-origin: top; 
         }
+        
+        /* Class applied when letter opens */
+        .letter.opening {
+            display: block;
+            animation: openLetter 1.5s ease-out forwards; 
+        }
+
+        /* Animation for a dramatic entrance */
         @keyframes openLetter {
-            0% { transform: scaleY(0); opacity: 0; }
-            50% { transform: scaleY(1); opacity: 0.5; }
+            0% { transform: scaleY(0.1); opacity: 0; }
+            80% { transform: scaleY(1.05); opacity: 1; }
             100% { transform: scaleY(1); opacity: 1; }
         }
+
+        /* --- TEXT ANIMATION STYLES (NEW) --- */
+        .letter-content {
+            line-height: 1.6;
+            text-align: justify;
+            margin-bottom: 25px;
+            color: #ff69b4;
+            font-size: 1.1em;
+            /* Animation properties */
+            opacity: 0; /* Start hidden */
+            letter-spacing: 5px; /* Start with large spacing */
+            transition: opacity 1.5s ease-out, letter-spacing 1.5s ease-out;
+            transition-delay: 1.8s; /* Start after the letter has opened */
+            white-space: pre-wrap;
+            overflow: hidden; 
+        }
+
+        /* Class to apply the final state of the text animation */
+        .content-visible {
+            opacity: 1;
+            letter-spacing: normal; /* End with normal spacing */
+        }
+        
+        /* --- OTHER STYLES (Retained) --- */
+        h1 {
+            border-bottom: 2px solid #ffb6c1;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .signature {
+            text-align: right;
+            margin-top: 30px;
+            font-style: italic;
+            font-weight: bold;
+            opacity: 0; /* Hide signature until animation is done */
+            transition: opacity 1s 3.5s; /* Delay signature until text animation is finished */
+        }
+        
+        .signature.visible {
+            opacity: 1;
+        }
+        
         img {
             width: 150px;
             height: auto;
+            border-radius: 10px;
             margin: 10px;
+            border: 3px solid #ffc0cb; 
         }
         button {
             background-color: #ff69b4;
@@ -39,21 +146,73 @@
             font-size: 18px;
             border-radius: 25px;
             cursor: pointer;
-            margin-top: 20px;
+            margin-top: 25px;
+            transition: background-color 0.3s;
         }
         button:hover {
             background-color: #ff1493;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
     </style>
 </head>
 <body>
-    <div class="letter">
+    <div id="closed-letters" class="closed-letter-container">
+        <div class="closed-letter" onclick="openLoveLetter()">
+            <span class="heart-seal">❤️</span>
+            Tap Me!
+        </div>
+        <div class="closed-letter" onclick="openLoveLetter()">
+            <span class="heart-seal">💌</span>
+            Open Me!
+        </div>
+         <div class="closed-letter" onclick="openLoveLetter()">
+            <span class="heart-seal">💖</span>
+            For You
+        </div>
+    </div>
+
+    <div id="love-letter" class="letter">
         <h1>My Dearest Princess,</h1>
-        <p>From the moment I met you, my heart knew it had found its forever home. You are the light in my darkest days, the smile that brightens my world. I love you more than words can say. Happy Princess Day! 💕</p>
-        <img src="https://media.giphy.com/media/3o7TKz9bX9v8zJzJzW/giphy.gif" alt="Cute Cat"> <!-- Cute cat GIF -->
-        <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif" alt="Another Cute Cat"> <!-- Another cute cat GIF -->
-        <p>With all my love, Your Prince</p>
+        
+        <p id="typed-text" class="letter-content">From the moment I met you, my heart knew it had found its forever home. You are the light in my darkest days, the smile that brightens my world. I love you more than words can say. Happy Princess Day! 💕</p>
+        
+        <img src="https://raw.githubusercontent.com/PromitDutta1/Princess-Day-1/main/Cat1.gif" alt="Cute Cat GIF 1"> 
+        <img src="https://raw.githubusercontent.com/PromitDutta1/Princess-Day-1/main/Cat2.gif" alt="Cute Cat GIF 2">
+        
+        <p id="signature" class="signature">With all my love, <br> Your Prince</p>
         <button onclick="window.location.href='songs.html'">Continue</button>
     </div>
+
+    <script>
+        const textElement = document.getElementById('typed-text');
+        const signatureElement = document.getElementById('signature');
+        const loveLetter = document.getElementById('love-letter');
+        const closedLetters = document.getElementById('closed-letters');
+
+        function startTextAnimation() {
+            // 1. Apply the final state class to trigger the CSS transition (Fade-in and Letter-spacing change)
+            textElement.classList.add('content-visible');
+            
+            // 2. The signature transition delay is now handled entirely by CSS on the .signature element
+            signatureElement.classList.add('visible'); 
+        }
+        
+        function openLoveLetter() {
+            // 1. Hide the closed letters
+            closedLetters.style.opacity = '0';
+            
+            // 2. Wait for the fade out, then hide it completely
+            setTimeout(() => {
+                closedLetters.style.display = 'none';
+                
+                // 3. Start the "opening" animation for the main letter
+                loveLetter.classList.add('opening');
+                
+                // 4. Start the text animation after the letter is visually open (1.5s + 300ms buffer)
+                // Note: The text itself has a CSS delay (1.8s total), but we need a slight JS delay to ensure the letter is open before we start the text's CSS animation.
+                setTimeout(startTextAnimation, 1800);
+            }, 500); // 500ms matches the transition duration in CSS
+        }
+    </script>
 </body>
 </html>
