@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Love Letter</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive;
+            background-color: #ffb6c1;
+            color: #ff69b4;
+            text-align: center;
+            padding: 20px;
+        }
+        .letter {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            animation: openLetter 2s ease-in-out;
+        }
+        @keyframes openLetter {
+            0% { transform: scaleY(0); opacity: 0; }
+            50% { transform: scaleY(1); opacity: 0.5; }
+            100% { transform: scaleY(1); opacity: 1; }
+        }
+        img {
+            width: 150px;
+            height: auto;
+            margin: 10px;
+        }
+        button {
+            background-color: #ff69b4;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #ff1493;
+        }
+    </style>
+</head>
+<body>
+    <div class="letter">
+        <h1>My Dearest Princess,</h1>
+        <p>From the moment I met you, my heart knew it had found its forever home. You are the light in my darkest days, the smile that brightens my world. I love you more than words can say. Happy Princess Day! 💕</p>
+        <img src="https://media.giphy.com/media/3o7TKz9bX9v8zJzJzW/giphy.gif" alt="Cute Cat"> <!-- Cute cat GIF -->
+        <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif" alt="Another Cute Cat"> <!-- Another cute cat GIF -->
+        <p>With all my love, Your Prince</p>
+        <button onclick="window.location.href='songs.html'">Continue</button>
+    </div>
+</body>
+</html>
