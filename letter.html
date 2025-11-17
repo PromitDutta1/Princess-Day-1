@@ -8,7 +8,7 @@
         /* General Body Styles */
         body {
             font-family: 'Comic Sans MS', cursive;
-            background-color: #ffb6c1; 
+            background-color: #ffb6c1; /* Soft pink background */
             color: #ff69b4;
             text-align: center;
             padding: 20px;
@@ -17,7 +17,7 @@
             align-items: center;
             min-height: 100vh; 
             margin: 0;
-            overflow: hidden; 
+            /* Scroll functionality is now working as 'overflow: hidden' was removed */
         }
         
         /* --- CLOSED LETTER STYLES --- */
@@ -26,13 +26,13 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 40px;
-            transition: opacity 0.5s; 
+            transition: opacity 0.5s; /* For fading out the container */
         }
 
         .closed-letter {
             width: 150px;
             height: 100px;
-            background-color: #fff; 
+            background-color: #fff; /* White envelope */
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             position: relative;
@@ -41,11 +41,11 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            animation: float 2s infinite alternate; 
+            animation: float 2s infinite alternate; /* Gentle floating effect */
         }
 
         .closed-letter:hover {
-            transform: scale(1.1) translateY(-5px); 
+            transform: scale(1.1) translateY(-5px); /* Lift and enlarge on hover */
             box-shadow: 0 10px 20px rgba(255, 105, 180, 0.5);
         }
 
@@ -53,7 +53,7 @@
             position: absolute;
             top: 5px;
             right: 5px;
-            color: #ff69b4; 
+            color: #ff69b4; /* Hot pink heart */
             font-size: 24px;
             line-height: 1;
         }
@@ -71,6 +71,7 @@
             border-radius: 20px;
             padding: 20px 40px;
             box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            /* Initially hidden */
             display: none; 
             opacity: 0;
             transform-origin: top; 
@@ -89,7 +90,7 @@
             100% { transform: scaleY(1); opacity: 1; }
         }
 
-        /* --- TEXT ANIMATION STYLES (NEW) --- */
+        /* --- TEXT ANIMATION STYLES (Fade-In & Letter Spacing) --- */
         .letter-content {
             line-height: 1.6;
             text-align: justify;
@@ -111,7 +112,7 @@
             letter-spacing: normal; /* End with normal spacing */
         }
         
-        /* --- OTHER STYLES (Retained) --- */
+        /* --- OTHER STYLES --- */
         h1 {
             border-bottom: 2px solid #ffb6c1;
             padding-bottom: 10px;
@@ -190,15 +191,15 @@
         const closedLetters = document.getElementById('closed-letters');
 
         function startTextAnimation() {
-            // 1. Apply the final state class to trigger the CSS transition (Fade-in and Letter-spacing change)
+            // Triggers the CSS transition for fade-in and letter-spacing
             textElement.classList.add('content-visible');
             
-            // 2. The signature transition delay is now handled entirely by CSS on the .signature element
+            // Triggers the CSS transition for the signature fade-in
             signatureElement.classList.add('visible'); 
         }
         
         function openLoveLetter() {
-            // 1. Hide the closed letters
+            // 1. Hide the closed letters (Fade out)
             closedLetters.style.opacity = '0';
             
             // 2. Wait for the fade out, then hide it completely
@@ -209,9 +210,8 @@
                 loveLetter.classList.add('opening');
                 
                 // 4. Start the text animation after the letter is visually open (1.5s + 300ms buffer)
-                // Note: The text itself has a CSS delay (1.8s total), but we need a slight JS delay to ensure the letter is open before we start the text's CSS animation.
                 setTimeout(startTextAnimation, 1800);
-            }, 500); // 500ms matches the transition duration in CSS
+            }, 500); // 500ms matches the transition duration for opacity
         }
     </script>
 </body>
