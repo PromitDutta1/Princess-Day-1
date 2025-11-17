@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Princess Day Surprise!</title>
+    <title>Princess Day Surprise! 👑</title>
     <style>
         body {
             font-family: 'Comic Sans MS', cursive;
@@ -24,6 +24,12 @@
             width: 200px;
             height: auto;
             border-radius: 50%;
+            /* Added margin for better spacing */
+            margin: 15px 0; 
+            border: 5px solid #ff69b4; /* Added a pink border */
+        }
+        h1 {
+            font-size: 2.5em;
         }
         button {
             background-color: #ff69b4;
@@ -34,16 +40,18 @@
             border-radius: 25px;
             cursor: pointer;
             margin-top: 20px;
+            transition: background-color 0.3s;
         }
         button:hover {
             background-color: #ff1493;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Happy Princess Day, My Love! 💖</h1>
-        <img src="https://github.com/PromitDutta1/Princess-Day-1/blob/main/Hello_Kitty.jpg" alt="Hello Kitty"> <!-- New Hello Kitty image from online Google search result (Wikimedia) -->
+        <img src="https://raw.githubusercontent.com/PromitDutta1/Princess-Day-1/main/Hello_Kitty.jpg" alt="Hello Kitty">
         <p>You are my princess, and today is all about you! Let's start this magical journey...</p>
         <button onclick="window.location.href='letter.html'">Open My Heart</button>
     </div>
