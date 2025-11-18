@@ -13,12 +13,29 @@
             text-align: center;
             padding: 20px;
             display: flex; 
+            flex-direction: column; /* Changed to column to stack instruction text, then letters, then main content */
             justify-content: center;
             align-items: center;
             min-height: 100vh; 
             margin: 0;
         }
         
+        /* New Style for the Instruction Text */
+        #instruction-text {
+            color: #ff1493; /* Deep pink for emphasis */
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-bottom: 30px; /* Space between instruction and letters */
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+            /* Optional: Add a subtle fade-in animation for the instruction */
+            animation: fadeInText 1s ease-out forwards;
+        }
+        
+        @keyframes fadeInText {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
         /* --- CLOSED LETTER STYLES --- */
         .closed-letter-container {
             display: flex;
@@ -26,6 +43,7 @@
             justify-content: center;
             gap: 40px;
             transition: opacity 0.5s; 
+            margin-bottom: 20px; /* Add space before the main content area */
         }
 
         .closed-letter {
@@ -127,7 +145,6 @@
             opacity: 1;
         }
         
-        /* Image styles apply to images inside the dynamically populated container */
         img {
             width: 150px;
             height: auto;
@@ -179,6 +196,8 @@
         </div>
     </div>
 
+    <h2 id="instruction-text">Click any of the letters, my Princess!</h2>
+
     <div id="closed-letters" class="closed-letter-container">
         <div class="closed-letter" onclick="openLoveLetter(1)">
             <span class="heart-seal">❤️</span>
@@ -210,7 +229,7 @@
         const signatureElement = document.getElementById('signature');
         const loveLetter = document.getElementById('love-letter');
         const closedLetters = document.getElementById('closed-letters');
-        const imageContainer = document.getElementById('image-container'); // NEW
+        const imageContainer = document.getElementById('image-container');
 
         function startTextAnimation() {
             textElement.classList.add('content-visible');
