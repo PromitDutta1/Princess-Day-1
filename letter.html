@@ -88,29 +88,26 @@
             100% { transform: scaleY(1); opacity: 1; }
         }
 
-        /* --- TEXT ANIMATION STYLES (Adjusted) --- */
+        /* --- TEXT ANIMATION STYLES --- */
         .letter-content {
             line-height: 1.6;
             text-align: justify;
             margin-bottom: 25px;
             color: #ff69b4;
             font-size: 1.1em;
-            /* Animation properties */
-            opacity: 0; /* Start hidden */
-            letter-spacing: 5px; /* Start with large spacing */
+            opacity: 0; 
+            letter-spacing: 5px; 
             transition: opacity 1.5s ease-out, letter-spacing 1.5s ease-out;
-            /* REMOVED transition-delay: 1.8s; */
             white-space: pre-wrap;
             overflow: hidden; 
         }
 
-        /* Class to apply the final state of the text animation */
         .content-visible {
             opacity: 1;
             letter-spacing: normal; 
         }
         
-        /* --- OTHER STYLES (Adjusted Signature Delay) --- */
+        /* --- OTHER STYLES --- */
         h1 {
             border-bottom: 2px solid #ffb6c1;
             padding-bottom: 10px;
@@ -123,7 +120,6 @@
             font-style: italic;
             font-weight: bold;
             opacity: 0; 
-            /* NEW DELAY: 1.5s (text transition duration) + 0.5s (buffer) = 2s total */
             transition: opacity 1s 2s; 
         }
         
@@ -131,6 +127,7 @@
             opacity: 1;
         }
         
+        /* Image styles apply to images inside the dynamically populated container */
         img {
             width: 150px;
             height: auto;
@@ -138,6 +135,7 @@
             margin: 10px;
             border: 3px solid #ffc0cb; 
         }
+        
         button {
             background-color: #ff69b4;
             color: white;
@@ -153,19 +151,44 @@
             background-color: #ff1493;
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
+        
+        /* Hidden content to store messages and image URLs */
+        .hidden-content {
+            display: none;
+        }
     </style>
 </head>
 <body>
+    
+    <div class="hidden-content">
+        <p id="message-1">From the moment I met you, my heart knew it had found its forever home. You are the light in my darkest days, the smile that brightens my world. I love you more than words can say. Happy Princess Day! 💕</p>
+        <p id="message-2">My beautiful love, every day with you is an adventure I cherish. Thank you for your kindness, your laughter, and the gentle way you look at the world. You are my greatest gift. Forever yours. 💖</p>
+        <p id="message-3">Just a little note to say you are the most amazing person I have ever known. Your strength inspires me, and your presence completes me. Thinking of you always. XOXO. 🌟</p>
+        
+        <div id="images-1">
+            <img src="https://raw.githubusercontent.com/PromitDutta1/Princess-Day-1/main/Cat1.gif" alt="Cute Cat GIF 1"> 
+            <img src="https://raw.githubusercontent.com/PromitDutta1/Princess-Day-1/main/Cat2.gif" alt="Cute Cat GIF 2">
+        </div>
+        <div id="images-2">
+            <img src="https://raw.githubusercontent.com/PromitDutta1/Princess-Day-1/main/Cat3.gif" alt="Cute Cat GIF 3"> 
+            <img src="https://raw.githubusercontent.com/PromitDutta1/Princess-Day-1/main/Cat4.gif" alt="Cute Cat GIF 4">
+        </div>
+        <div id="images-3">
+            <img src="https://raw.githubusercontent.com/PromitDutta1/Princess-Day-1/main/Cat5.gif" alt="Cute Cat GIF 5"> 
+            <img src="https://raw.githubusercontent.com/PromitDutta1/Princess-Day-1/main/Cat6.gif" alt="Cute Cat GIF 6">
+        </div>
+    </div>
+
     <div id="closed-letters" class="closed-letter-container">
-        <div class="closed-letter" onclick="openLoveLetter()">
+        <div class="closed-letter" onclick="openLoveLetter(1)">
             <span class="heart-seal">❤️</span>
             Tap Me!
         </div>
-        <div class="closed-letter" onclick="openLoveLetter()">
+        <div class="closed-letter" onclick="openLoveLetter(2)">
             <span class="heart-seal">💌</span>
             Open Me!
         </div>
-         <div class="closed-letter" onclick="openLoveLetter()">
+         <div class="closed-letter" onclick="openLoveLetter(3)">
             <span class="heart-seal">💖</span>
             For You
         </div>
@@ -174,10 +197,9 @@
     <div id="love-letter" class="letter">
         <h1>My Dearest Princess,</h1>
         
-        <p id="typed-text" class="letter-content">From the moment I met you, my heart knew it had found its forever home. You are the light in my darkest days, the smile that brightens my world. I love you more than words can say. Happy Princess Day! 💕</p>
+        <p id="typed-text" class="letter-content"></p>
         
-        <img src="https://raw.githubusercontent.com/PromitDutta1/Princess-Day-1/main/Cat1.gif" alt="Cute Cat GIF 1"> 
-        <img src="https://raw.githubusercontent.com/PromitDutta1/Princess-Day-1/main/Cat2.gif" alt="Cute Cat GIF 2">
+        <div id="image-container"></div>
         
         <p id="signature" class="signature">With all my love, <br> Your Prince</p>
         <button onclick="window.location.href='songs.html'">Continue</button>
@@ -188,26 +210,37 @@
         const signatureElement = document.getElementById('signature');
         const loveLetter = document.getElementById('love-letter');
         const closedLetters = document.getElementById('closed-letters');
+        const imageContainer = document.getElementById('image-container'); // NEW
 
         function startTextAnimation() {
-            // This is called immediately after the letter opening animation is triggered.
             textElement.classList.add('content-visible');
             signatureElement.classList.add('visible'); 
         }
         
-        function openLoveLetter() {
-            // 1. Hide the closed letters (Fade out)
+        function openLoveLetter(messageId) {
+            // 1. Get and set the specific message content
+            const messageElement = document.getElementById('message-' + messageId);
+            if (messageElement) {
+                textElement.textContent = messageElement.textContent;
+            }
+            
+            // 2. Get and set the specific image content
+            const imageSetElement = document.getElementById('images-' + messageId);
+            if (imageSetElement) {
+                imageContainer.innerHTML = imageSetElement.innerHTML;
+            }
+
+            // 3. Hide the closed letters (Fade out)
             closedLetters.style.opacity = '0';
             
-            // 2. Wait for the fade out, then hide it completely
+            // 4. Wait for the fade out, then hide it completely
             setTimeout(() => {
                 closedLetters.style.display = 'none';
                 
-                // 3. Start the "opening" animation for the main letter
+                // 5. Start the "opening" animation for the main letter
                 loveLetter.classList.add('opening');
                 
-                // 4. Start the text animation immediately after triggering the letter open animation
-                // This ensures the text starts fading in AS the letter is opening.
+                // 6. Start the text animation immediately (as requested)
                 startTextAnimation(); 
             }, 500); 
         }
